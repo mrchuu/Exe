@@ -1,12 +1,12 @@
 import Item from "../model/Item.js";
-const getAllItems = async() =>{
+const getItemsByCategory = async(category) =>{
     try {
-        const result = await Item.find();
+        const result = await Item.find({category: category});
         return result;
     } catch (error) {
         throw new Error(error.message);
     }
 }
 export default {
-    getAllItems
+    getItemsByCategory
 }

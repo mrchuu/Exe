@@ -16,6 +16,10 @@ const OrderSchema = new Schema(
       type: String,
       required: true,
     },
+    receiver: {
+      type: String,
+      required: true
+    },
     address: {
       type: String,
       required: true,
@@ -24,14 +28,14 @@ const OrderSchema = new Schema(
       type: [ItemDto],
       default: [],
     },
-    // total: {
-    //   type: Number,
-    //   default: 1,
-    // },
     shipped: {
       type: Boolean,
       default: false,
     },
+    confirmed: {
+      type: Boolean,
+      default: false,
+    }
   },
   {
     timestamps: true,

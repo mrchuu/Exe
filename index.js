@@ -4,6 +4,7 @@ import mongoose from "mongoose";
 import dotenv from "dotenv";
 import itemRouter from "./router/Item.js";
 import orderRouter from "./router/Order.js"
+import reviewRouter from "./router/Review.js";
 const app = express();
 dotenv.config();
 const corsOptions = {
@@ -16,6 +17,7 @@ app.use(express.json({ limit: "10mb" }));
 
 app.use("/api/items", itemRouter);
 app.use("/api/order", orderRouter);
+app.use("/api/review", reviewRouter);
 const port = process.env.PORT || 9999;
 const MONGODB_URI = process.env.MONGODB_URI;
 app.listen(port, async () => {
