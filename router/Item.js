@@ -10,4 +10,12 @@ itemRouter.get("/:category", async (req, res) => {
     return res.status(500).json({ error: error.message });
   }
 });
+itemRouter.get("/", async (req, res)=>{
+  try {
+    const result = await ItemRepository.getAll();
+    return res.status(200).json({ data: result });
+  } catch (error) {
+    return res.status(500).json({ error: error.message });
+  }
+})
 export default itemRouter;
