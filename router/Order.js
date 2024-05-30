@@ -20,7 +20,6 @@ orderRouter.post("/", async (req, res) => {
 });
 orderRouter.get("/list", async (req, res) => {
   try {
-    console.log("??????");
     const index = req.query.index || 0;
     const pageSize = req.query.pageSize || 8;
     const result = await OrderRepository.getPagedOrder({
@@ -28,6 +27,17 @@ orderRouter.get("/list", async (req, res) => {
       pageSize,
     });
     return res.status(200).json(result);
+  } catch (error) {
+    return res.status(500).json({ error: error.message });
+  }
+});
+orderRouter.delete("/delete/:id", async (req, res) => {
+  try {
+    const id = req.params.id;
+    const result = await OrderRepository.deleteOrder(id);
+    return res
+      .status(200)
+      .json({ data: result, message: "Đã xoá thành công đơn hàng" });
   } catch (error) {
     return res.status(500).json({ error: error.message });
   }

@@ -11,6 +11,16 @@ const getItemsByCategory = async (category) => {
     throw new Error(error.message);
   }
 };
+const getItemsBySingleCategory = async (category) => {
+  try {
+    const result = await Item.find({
+      category: category
+    });
+    return result;
+  } catch (error) {
+    throw new Error(error.message);
+  }
+};
 const getItemsByIds = async (itemsId) => {
   try {
     const result = await Item.find({
@@ -34,5 +44,6 @@ const getAll = async () => {
 export default {
   getItemsByCategory,
   getAll,
-  getItemsByIds
+  getItemsByIds,
+  getItemsBySingleCategory
 };

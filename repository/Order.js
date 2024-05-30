@@ -34,7 +34,16 @@ const getPagedOrder = async ({ index, pageSize }) => {
     throw new Error(error.message);
   }
 };
+const deleteOrder = async (id) => {
+  try {
+    const result = await Order.deleteOne({ _id: id });
+    return result
+  } catch (error) {
+    throw new Error(error.message);
+  }
+};
 export default {
   getPagedOrder,
   placeOrder,
+  deleteOrder
 };
