@@ -8,22 +8,12 @@ import reviewRouter from "./router/Review.js";
 import categoryRouter from "./router/Category.js";
 const app = express();
 dotenv.config();
-const allowedOrigins = [
-  "http://localhost:3000",
-  "https://baca.nnmonday.click/",
-];
+// const allowedOrigins = [
+//   "http://localhost:3000",
+//   "https://baca.nnmonday.click/", "https://baca.nnmonday.click/",
+// ];
 const corsOptions = {
-  origin: (origin, callback) => {
-    if (!origin) {
-      // Allow requests with no origin, like mobile apps or curl requests
-      return callback(null, true);
-    }
-    if (allowedOrigins.includes(origin)) {
-      return callback(null, true);
-    } else {
-      return callback(new Error("Not allowed by CORS"));
-    }
-  },
+  origin:  "https://baca.nnmonday.click/",
   methods: "PUT, POST, GET, DELETE, OPTIONS, PATCH",
   credentials: true,
 };
