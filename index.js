@@ -8,7 +8,10 @@ import reviewRouter from "./router/Review.js";
 import categoryRouter from "./router/Category.js";
 const app = express();
 dotenv.config();
-const allowedOrigins = ["http://localhost:3000", "baca.nnmonday.click"];
+const allowedOrigins = [
+  "http://localhost:3000",
+  "https://baca.nnmonday.click/",
+];
 const corsOptions = {
   origin: (origin, callback) => {
     if (!origin) {
