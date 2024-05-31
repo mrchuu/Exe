@@ -13,7 +13,7 @@ dotenv.config();
 //   "https://baca.nnmonday.click/", "https://baca.nnmonday.click/",
 // ];
 const corsOptions = {
-  origin:  "https://baca.nnmonday.click/",
+  origin:  "https://baca.nnmonday.click",
   methods: "PUT, POST, GET, DELETE, OPTIONS, PATCH",
   credentials: true,
 };
