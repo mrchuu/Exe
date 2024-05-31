@@ -33,4 +33,13 @@ itemRouter.get("/:categoryId", async (req, res) => {
     return res.status(500).json({ error: error.message });
   }
 });
+itemRouter.get("/name/:name", async (req, res) => {
+  try {
+    const name = req.params.name;
+    const result = await ItemRepository.getItemsByName(name);
+    return res.status(200).json({ data: result });
+  } catch (error) {
+    return res.status(500).json({ error: error.message });
+  }
+});
 export default itemRouter;

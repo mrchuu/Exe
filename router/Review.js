@@ -12,9 +12,16 @@ reviewRouter.get("/list/:index", async (req, res) => {
 });
 reviewRouter.post("/", async (req, res) => {
   try {
-    const { name, content, images } = req.body;
-    const result = await ReviewRepository.addReview({name, content, images});
-    return res.status(201).json({data: result, message: "Thêm phản hồi thành công"})
+    const { name, content, images, rating } = req.body;
+    const result = await ReviewRepository.addReview({
+      name,
+      content,
+      images,
+      rating,
+    });
+    return res
+      .status(201)
+      .json({ data: result, message: "Thêm phản hồi thành công" });
   } catch (error) {
     return res.status(500).json({ error: error.message });
   }

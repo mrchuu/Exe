@@ -18,10 +18,10 @@ const getPaginatedReviews = async (index) => {
     throw new Error(error.message);
   }
 };
-const addReview = async ({ name, content, images }) => {
+const addReview = async ({ name, content, images, rating }) => {
   try {
     const result = await Review.create({
-      name, content, images
+      name, content, images, rating
     })
     return result;
   } catch (error) {

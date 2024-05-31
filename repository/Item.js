@@ -41,9 +41,18 @@ const getAll = async () => {
     throw new Error(error.message);
   }
 };
+const getItemsByName = async (name) =>{
+  try {
+    const result = await Item.find({name: name});
+    return result;
+  } catch (error) {
+    throw new Error(error.message);
+  }
+}
 export default {
   getItemsByCategory,
   getAll,
   getItemsByIds,
-  getItemsBySingleCategory
+  getItemsBySingleCategory,
+  getItemsByName
 };
