@@ -13,7 +13,7 @@ dotenv.config();
 //   "https://baca.nnmonday.click/", "https://baca.nnmonday.click/",
 // ];
 const corsOptions = {
-  origin:  "https://maneki-chan.nnmonday.click/",
+  origin:  "https://maneki-chan.nnmonday.click",
   methods: "PUT, POST, GET, DELETE, OPTIONS, PATCH",
   credentials: true,
 };
