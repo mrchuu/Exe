@@ -8,15 +8,24 @@ import reviewRouter from "./router/Review.js";
 import categoryRouter from "./router/Category.js";
 const app = express();
 dotenv.config();
-// const allowedOrigins = [
-//   "http://localhost:3000",
-//   "https://baca.nnmonday.click/", "https://baca.nnmonday.click/",
-// ];
+const allowedOrigins = [
+  "http://localhost:3000",
+  "https://maneki-chan.nnmonday.click"
+];
+
 const corsOptions = {
-  origin:  "https://maneki-chan.nnmonday.click",
-  methods: "PUT, POST, GET, DELETE, OPTIONS, PATCH",
+  origin: (origin, callback) => {
+    if (allowedOrigins.indexOf(origin) !== -1 || !origin) {
+      callback(null, true);
+    } else {
+      callback(new Error('Not allowed by CORS'));
+    }
+  },
+  methods: ["GET", "HEAD", "PUT", "PATCH", "POST", "DELETE", "OPTIONS"],
   credentials: true,
+  optionsSuccessStatus: 204
 };
+
 app.use(cors(corsOptions));
 app.use(express.json({ limit: "10mb" }));
 
