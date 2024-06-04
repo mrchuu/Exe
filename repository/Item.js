@@ -17,16 +17,23 @@ const getItems = async (category, name) => {
     // Define collation options for case-insensitive and accent-insensitive matching
     const collation = { locale: "vi", strength: 2 }; // Use strength 2 for diacritic insensitivity
 
-    // Perform the text search with collation
-    const result = await Item.find(query, { score: { $meta: "textScore" } })
-                              .collation(collation)
-                              .sort({ score: { $meta: "textScore" } });
+    let result;
+
+    if (query.$text) {
+      // Perform the text search with collation
+      result = await Item.find(query, { score: { $meta: "textScore" } })
+        .collation(collation)
+        .sort({ score: { $meta: "textScore" } });
+    } else {
+      // Perform the query without text search
+      result = await Item.find(query);
+    }
+
     return result;
   } catch (error) {
     throw new Error(error.message);
   }
 };
-
 
 const getItemsBySingleCategory = async (category) => {
   try {
