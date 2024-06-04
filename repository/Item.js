@@ -1,21 +1,32 @@
 import Item from "../model/Item.js";
 const getItems = async (category, name) => {
   try {
+    // Initialize the query object
     const query = {};
+
+    // Add category filter if category is not an empty array
     if (category && category.length > 0) {
       query.category = { $in: category };
     }
+
+    // Add name filter if name is not an empty string or null
     if (name && name.trim().length > 0) {
-      const regex = new RegExp(name.split(" ").join(".*"), "i");
-      query.name = { $regex: regex };
+      query.$text = { $search: name };
     }
-    const collation = { locale: "vi", strength: 1 };
-    const result = await Item.find(query).collation(collation);
+
+    // Define collation options for case-insensitive and accent-insensitive matching
+    const collation = { locale: "vi", strength: 2 }; // Use strength 2 for diacritic insensitivity
+
+    // Perform the text search with collation
+    const result = await Item.find(query, { score: { $meta: "textScore" } })
+                              .collation(collation)
+                              .sort({ score: { $meta: "textScore" } });
     return result;
   } catch (error) {
     throw new Error(error.message);
   }
 };
+
 
 const getItemsBySingleCategory = async (category) => {
   try {
