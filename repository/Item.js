@@ -1,20 +1,26 @@
 import Item from "../model/Item.js";
-const getItemsByCategory = async (category) => {
+const getItems = async (category, name) => {
   try {
-    const result = await Item.find({
-      category: {
-        $in: category,
-      },
-    });
+    const query = {};
+    if (category && category.length > 0) {
+      query.category = { $in: category };
+    }
+    if (name && name.trim().length > 0) {
+      const regex = new RegExp(name.split(" ").join(".*"), "i");
+      query.name = { $regex: regex };
+    }
+    const collation = { locale: "vi", strength: 1 };
+    const result = await Item.find(query).collation(collation);
     return result;
   } catch (error) {
     throw new Error(error.message);
   }
 };
+
 const getItemsBySingleCategory = async (category) => {
   try {
     const result = await Item.find({
-      category: category
+      category: category,
     });
     return result;
   } catch (error) {
@@ -24,10 +30,10 @@ const getItemsBySingleCategory = async (category) => {
 const getItemsByIds = async (itemsId) => {
   try {
     const result = await Item.find({
-        _id: {
-            $in: itemsId
-        }
-    })
+      _id: {
+        $in: itemsId,
+      },
+    });
     return result;
   } catch (error) {
     throw new Error(error.message);
@@ -43,16 +49,16 @@ const getAll = async () => {
 };
 const getItemsByName = async (name) => {
   try {
-      const result = await Item.find({ name: { $regex: name, $options: 'i' } });
-      return result;
+    const result = await Item.find({ name: { $regex: name, $options: "i" } });
+    return result;
   } catch (error) {
-      throw new Error(error.message);
+    throw new Error(error.message);
   }
-}
+};
 export default {
-  getItemsByCategory,
+  getItems,
   getAll,
   getItemsByIds,
   getItemsBySingleCategory,
-  getItemsByName
+  getItemsByName,
 };

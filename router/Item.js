@@ -4,13 +4,10 @@ const itemRouter = express.Router();
 itemRouter.post("/", async (req, res) => {
   try {
     const categories = req.body.categories;
-    if (categories.length > 0) {
-      const result = await ItemRepository.getItemsByCategory(categories);
-      return res.status(200).json({ data: result });
-    } else {
-      const result = await ItemRepository.getAll();
-      return res.status(200).json({ data: result });
-    }
+    const name = req.body.name;
+
+    const result = await ItemRepository.getItems(categories, name);
+    return res.status(200).json({ data: result });
   } catch (error) {
     return res.status(500).json({ error: error.message });
   }
