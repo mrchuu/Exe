@@ -1,11 +1,20 @@
 import Order from "../model/Order.js";
-const placeOrder = async ({ phoneNumber, address, items, receiver }) => {
+const placeOrder = async ({
+  phoneNumber,
+  address,
+  items,
+  receiver,
+  total,
+  note,
+}) => {
   try {
     const result = await Order.create({
       phoneNumber,
       address,
       items,
       receiver,
+      total,
+      note,
     });
     return result._doc;
   } catch (error) {
@@ -37,7 +46,7 @@ const getPagedOrder = async ({ index, pageSize }) => {
 const deleteOrder = async (id) => {
   try {
     const result = await Order.deleteOne({ _id: id });
-    return result
+    return result;
   } catch (error) {
     throw new Error(error.message);
   }
@@ -45,5 +54,5 @@ const deleteOrder = async (id) => {
 export default {
   getPagedOrder,
   placeOrder,
-  deleteOrder
+  deleteOrder,
 };

@@ -18,7 +18,7 @@ const OrderSchema = new Schema(
     },
     receiver: {
       type: String,
-      required: true
+      required: true,
     },
     address: {
       type: String,
@@ -35,7 +35,15 @@ const OrderSchema = new Schema(
     confirmed: {
       type: Boolean,
       default: false,
-    }
+    },
+    total: {
+      type: Number,
+      default: 0,
+    },
+    note: {
+      type: String,
+      default: "",
+    },
   },
   {
     timestamps: true,

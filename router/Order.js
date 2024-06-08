@@ -3,13 +3,15 @@ import express from "express";
 const orderRouter = express.Router();
 orderRouter.post("/", async (req, res) => {
   try {
-    const { phoneNumber, address, items, receiver } = req.body;
+    const { phoneNumber, address, items, receiver, total, note } = req.body;
 
     const result = await OrderRepository.placeOrder({
       phoneNumber,
       address,
       items,
       receiver,
+      total,
+      note
     });
     return res
       .status(201)
