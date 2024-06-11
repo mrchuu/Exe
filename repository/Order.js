@@ -43,6 +43,21 @@ const getPagedOrder = async ({ index, pageSize }) => {
     throw new Error(error.message);
   }
 };
+const updateOrder = async (confirmed, shipped, id) =>{
+ try {
+  const result = await Order.findByIdAndUpdate(
+    id, {
+      $set: {
+        confirmed: confirmed,
+        shipped: shipped
+      }
+    }
+  )
+  return result;
+ } catch (error) {
+  throw new Error(error.message)
+ }  
+}
 const deleteOrder = async (id) => {
   try {
     const result = await Order.deleteOne({ _id: id });
@@ -55,4 +70,5 @@ export default {
   getPagedOrder,
   placeOrder,
   deleteOrder,
+  updateOrder
 };

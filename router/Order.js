@@ -44,4 +44,14 @@ orderRouter.delete("/delete/:id", async (req, res) => {
     return res.status(500).json({ error: error.message });
   }
 });
+orderRouter.patch("/update/:id", async(req, res)=>{
+  try {
+    const id = req.params.id;
+    const {confirmed, shipped} = req.body;
+    const result = await OrderRepository.updateOrder(confirmed, shipped, id);
+    return res.status(200).json({data: result, message: "update thành công"})
+  } catch (error) {
+    return res.status(500).json({ error: error.message });
+  }
+})
 export default orderRouter;
